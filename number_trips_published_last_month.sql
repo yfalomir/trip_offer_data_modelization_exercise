@@ -1,4 +1,4 @@
--- Get the country (departure) with highest number of publications last month
+-- How many trip offers have been published last calendar month
 WITH DateLimits AS (
 	SELECT 
 		MAX(DateId) as UpperLimit,
@@ -8,13 +8,7 @@ WITH DateLimits AS (
 			EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) = Month
 )
 SELECT 
-	StartLocations.Country,
-	COUNT(Trips.TripId) AS TripsDuringLastCalendarMonth
-FROM Fact_Trips Trips
-CROSS JOIN DateLimits Limits
-LEFT JOIN Dim_Routes Routes ON Trips.RouteId = Routes.RouteId
-LEFT JOIN Dim_Locations StartLocations ON Routes.StartLocationId = StartLocations.LocationId
+	COUNT(TripId) AS TripsDuringLastCalendarMonth
+FROM Fact_Trips trips
+CROSS JOIN DateLimits limits
 WHERE DateId BETWEEN LowerLimit AND UpperLimit
-GROUP BY StartLocations.Country
-ORDER BY TripsDuringLastCalendarMonth DESC
-LIMIT 1
