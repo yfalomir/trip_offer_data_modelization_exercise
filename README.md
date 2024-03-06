@@ -1,4 +1,4 @@
-# Trip Offer Data Modelization Excercise (Youri Falomir)
+# Trip Offer Data Modelization
 
 The project was created using MySQL WorkBench.
 It only represents a rough modelization of a TripOffer data model considering the constraints mentioned.
